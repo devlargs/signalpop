@@ -14,19 +14,26 @@ chrome.runtime.sendMessage({}, (response) => {
         let element;
 
         const interval = setInterval(() => {
-          const a = document.getElementsByClassName(
-            "fs-24px font-weight-bold d-flex align-items-center"
-          )[1];
+          //   const a = document.getElementsByClassName(
+          //     "fs-24px font-weight-bold d-flex align-items-center"
+          //   )[1];
+          const btn = document.getElementsByClassName(
+            "creator-profile__avatar"
+          )[0];
 
           const { pathname } = window.location;
 
-          if (a && pathname.includes("/u/")) {
+          if (btn && pathname.includes("/u/")) {
             const name = pathname.split("/u/")[1];
 
-            element = a;
-            clearInterval(interval);
-            a.innerHTML = `@${name} 
-            <button id="signal">click</button> 
+            element = btn;
+            // clearInterval(interval);
+            // @${name}
+            btn.innerHTML = `
+            <button id="signal" style="
+                margin-left: 90px;
+                margin-top: 50px;
+            ">click</button> 
           `;
             document
               .getElementById("signal")
@@ -45,12 +52,31 @@ chrome.runtime.sendMessage({}, (response) => {
           const profile = document.querySelector(
             'img[src="/search-signalclout-brand.svg"]'
           );
+
+          const xpath = "//button[text()='View Details']";
+          const viewDetails = document.evaluate(
+            xpath,
+            document,
+            null,
+            XPathResult.FIRST_ORDERED_NODE_TYPE,
+            null
+          ).singleNodeValue;
+
           console.log(profile);
           if (profile) {
             if (profile instanceof HTMLElement) {
               profile.click();
               clearInterval(interval);
             }
+            return;
+          }
+
+          if (viewDetails) {
+            if (viewDetails instanceof HTMLElement) {
+              viewDetails.click();
+              clearInterval(interval);
+            }
+            return;
           }
         }, 1000);
       }
