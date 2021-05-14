@@ -33,7 +33,13 @@ chrome.runtime.sendMessage({}, (response) => {
             <button id="signal" style="
                 margin-left: 90px;
                 margin-top: 50px;
-            ">click</button> 
+                color: white;
+                background-color: #005BFF;
+                border: none;
+                border-radius: 5px;
+                padding: 6px 12px;
+                font-size: 14px;
+            ">Signalclout</button> 
           `;
             document
               .getElementById("signal")
